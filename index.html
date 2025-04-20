@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Netflix Replica</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #141414;
+      color: white;
+      scroll-behavior: smooth;
+    }
+    /* Custom scrollbar for FAQ */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #e50914;
+      border-radius: 4px;
+    }
+    /* Fade-in animation */
+    .fade-in {
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    /* Slide up animation */
+    .slide-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .slide-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Button pulse animation */
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(229, 9, 20, 0.7);
+      }
+      50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px 10px rgba(229, 9, 20, 0);
+      }
+    }
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+    /* Collapsible FAQ */
+    .faq-question {
+      cursor: pointer;
+      user-select: none;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+    .faq-answer.open {
+      max-height: 1000px; /* large enough to show content */
+    }
+    /* Sticky header shadow on scroll */
+    .header-shadow {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      background-color: rgba(0,0,0,0.85);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header id="header" class="flex items-center justify-between p-4 bg-black bg-opacity-90 fixed w-full z-50 transition-shadow">
+    <img
+      src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7f67-86aa-d06aa27c6cc0/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+      alt="Netflix Logo"
+      class="h-12 md:h-14"
+    />
+    <button
+      class="text-white bg-red-600 px-5 py-2 rounded font-semibold hover:bg-red-700 transition focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+    >
+      Sign In
+    </button>
+  </header>
+
+  <!-- Hero Section -->
+  <section
+    class="relative flex flex-col items-center justify-center text-center pt-28 pb-20 px-4 bg-black fade-in"
+    style="background-image: url('https://assets.nflxext.com/ffe/siteui/vlv3/69bec183-9cc8-49d4-8fc2-08228d3c91b4/web/DE-en-20250414-TRIFECTA-perspective_92261833-e69a-4a1a-bffd-453270cdbe8f_large.jpg'); background-size: cover; background-position: center;"
+  >
+    <div class="bg-black bg-opacity-80 p-10 rounded max-w-4xl w-full">
+      <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight slide-up">Unlimited movies, TV shows, and more</h1>
+      <p class="text-2xl mb-8 slide-up" style="animation-delay: 0.3s;">Starts at €4.99. Cancel anytime.</p>
+      <h2 class="text-xl mb-6 font-semibold slide-up" style="animation-delay: 0.6s;">Ready to watch? Enter your email to create or restart your membership.</h2>
+      <form class="flex flex-col sm:flex-row justify-center gap-4 slide-up" style="animation-delay: 0.9s;">
+        <input
+          type="email"
+          placeholder="Email address"
+          class="p-4 rounded text-black flex-grow focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+          required
+        />
+        <button
+          type="submit"
+          class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded font-semibold transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 pulse-animation"
+        >
+          Get Started
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="bg-black py-14 px-4 text-center max-w-4xl mx-auto fade-in slide-up" style="animation-delay: 1.2s;">
+    <h3 class="text-3xl font-semibold mb-5">The Netflix you love for just €4.99.</h3>
+    <p class="mb-8 text-lg">Get our most affordable, ad-supported plan.</p>
+    <a href="#" class="text-red-600 hover:underline font-semibold transition">Learn More</a>
+  </section>
+
+  <!-- Trending Now Section -->
+  <section class="bg-black py-14 px-4 max-w-5xl mx-auto fade-in">
+    <h3 class="text-4xl font-bold mb-8 slide-up" style="animation-delay: 1.5s;">Trending Now</h3>
+    <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-left">
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 1.6s;">
+        <p class="font-semibold mb-2">How to Sell Drugs Online (Fast)</p>
+        <p class="text-gray-400 text-sm">11</p>
+        <p class="text-gray-500 italic text-xs">(Definitely not a tutorial!)</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 1.7s;">
+        <p class="font-semibold mb-2">Adolescence</p>
+        <p class="text-gray-400 text-sm">22</p>
+        <p class="text-gray-500 italic text-xs">(Awkward but relatable)</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 1.8s;">
+        <p class="font-semibold mb-2">Squid Game</p>
+        <p class="text-gray-400 text-sm">33</p>
+        <p class="text-gray-500 italic text-xs">(Survival of the fittest, literally)</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 1.9s;">
+        <p class="font-semibold mb-2">The Gardener</p>
+        <p class="text-gray-400 text-sm">44</p>
+        <p class="text-gray-500 italic text-xs">(Plants have feelings too... maybe)</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 2.0s;">
+        <p class="font-semibold mb-2">The Life List</p>
+        <p class="text-gray-400 text-sm">55</p>
+        <p class="text-gray-500 italic text-xs">(Bucket list or grocery list?)</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 2.1s;">
+        <p class="font-semibold mb-2">The Electric State</p>
+        <p class="text-gray-400 text-sm">66</p>
+        <p class="text-gray-500 italic text-xs">(Zap! Pow! Sci-fi vibes)</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 2.2s;">
+        <p class="font-semibold mb-2">Devil May Cry</p>
+        <p class="text-gray-400 text-sm">77</p>
+        <p class="text-gray-500 italic text-xs">(Not just a game, it's a lifestyle)</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 2.3s;">
+        <p class="font-semibold mb-2">The Glass Dome</p>
+        <p class="text-gray-400 text-sm">88</p>
+        <p class="text-gray-500 italic text-xs">(Fragile but fascinating)</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 2.4s;">
+        <p class="font-semibold mb-2">Cobra Kai</p>
+        <p class="text-gray-400 text-sm">99</p>
+        <p class="text-gray-500 italic text-xs">(Strike first, strike funny)</p>
+      </li>
+      <li class="bg-gray-900 p-6 rounded shadow hover:shadow-lg transition transform hover:scale-105 cursor-pointer slide-up" style="animation-delay: 2.5s;">
+        <p class="font-semibold mb-2">Ransom Canyon</p>
+        <p class="text-gray-400 text-sm">1010</p>
+        <p class="text-gray-500 italic text-xs">(Where the wild west meets wild plots)</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- More Reasons to Join Section -->
+  <section class="bg-black py-14 px-4 max-w-4xl mx-auto text-center fade-in">
+    <h3 class="text-4xl font-bold mb-10">More Reasons to Join</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
+      <div class="flex items-start gap-6">
+        <i class="fas fa-tv fa-4x text-red-600"></i>
+        <div>
+          <h4 class="text-2xl font-semibold mb-3">Enjoy on your TV</h4>
+          <p class="text-lg">Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-6">
+        <i class="fas fa-download fa-4x text-red-600"></i>
+        <div>
+          <h4 class="text-2xl font-semibold mb-3">Download your shows to watch offline</h4>
+          <p class="text-lg">Save your favorites easily and always have something to watch.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-6">
+        <i class="fas fa-mobile-alt fa-4x text-red-600"></i>
+        <div>
+          <h4 class="text-2xl font-semibold mb-3">Watch everywhere</h4>
+          <p class="text-lg">Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-6">
+        <i class="fas fa-child fa-4x text-red-600"></i>
+        <div>
+          <h4 class="text-2xl font-semibold mb-3">Create profiles for kids</h4>
+          <p class="text-lg">Send kids on adventures with their favorite characters in a space made just for them — free with your membership.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="bg-black py-14 px-4 max-w-5xl mx-auto fade-in">
+    <h3 class="text-4xl font-bold mb-10 text-center">Frequently Asked Questions</h3>
+    <div class="space-y-8 text-left">
+      <div>
+        <h4 class="faq-question text-2xl font-semibold mb-2">What can I watch on Netflix?</h4>
+        <p class="faq-answer max-h-0 overflow-hidden transition-max-height duration-500 ease-in-out">
+          Netflix has an extensive library of feature films, documentaries, TV shows, anime, award-winning Netflix originals, and more. Watch as much as you want, anytime you want.
+          <br />
+          <a href="https://www.netflix.com/de-en/browse/genre/839338" class="text-red-600 hover:underline">Check out some of our content</a>.
+        </p>
+      </div>
+      <div>
+        <h4 class="faq-question text-2xl font-semibold mb-2">What is Netflix?</h4>
+        <p class="faq-answer max-h-0 overflow-hidden transition-max-height duration-500 ease-in-out">
+          Netflix is a streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.
+          <br />
+          You can watch as much as you want, whenever you want – all for one low monthly price. There's always something new to discover and new TV shows and movies are added every week!
+        </p>
+      </div>
+      <div>
+        <h4 class="faq-question text-2xl font-semibold mb-2">How much does Netflix cost?</h4>
+        <p class="faq-answer max-h-0 overflow-hidden transition-max-height duration-500 ease-in-out">
+          Watch Netflix on your smartphone, tablet, Smart TV, laptop, or streaming device, all for one fixed monthly fee. Plans range from €4.99 to €19.99 a month. No extra costs, no contracts.
+        </p>
+      </div>
+      <div>
+        <h4 class="faq-question text-2xl font-semibold mb-2">Where can I watch?</h4>
+        <p class="faq-answer max-h-0 overflow-hidden transition-max-height duration-500 ease-in-out">
+          Watch anywhere, anytime. Sign in with your Netflix account to watch instantly on the web at netflix.com from your personal computer or on any internet-connected device that offers the Netflix app, including smart TVs, smartphones, tablets, streaming media players and game consoles.
+          <br />
+          You can also download your favorite shows with the iOS or Android app. Use downloads to watch while you're on the go and without an internet connection. Take Netflix with you anywhere.
+        </p>
+      </div>
+      <div>
+        <h4 class="faq-question text-2xl font-semibold mb-2">How do I cancel?</h4>
+        <p class="faq-answer max-h-0 overflow-hidden transition-max-height duration-500 ease-in-out">
+          Netflix is flexible. There are no pesky contracts and no commitments. You can easily cancel your account online in two clicks. There are no cancellation fees – start or stop your account anytime.
+        </p>
+      </div>
+      <div>
+        <h4 class="faq-question text-2xl font-semibold mb-2">Is Netflix good for kids?</h4>
+        <p class="faq-answer max-h-0 overflow-hidden transition-max-height duration-500 ease-in-out">
+          The Netflix Kids experience is included in your membership to give parents control while kids enjoy family-friendly TV shows and movies in their own space.
+          <br />
+          Kids profiles come with PIN-protected parental controls that let you restrict the maturity rating of content kids can watch and block specific titles you don’t want kids to see.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section
+    class="relative flex flex-col items-center justify-center text-center py-14 px-4 bg-black fade-in"
+  >
+    <h2 class="text-xl mb-6 font-semibold">Ready to watch? Enter your email to create or restart your membership.</h2>
+    <form class="flex flex-col sm:flex-row justify-center gap-4 max-w-xl w-full">
+      <input
+        type="email"
+        placeholder="Email address"
+        class="p-4 rounded text-black flex-grow focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+        required
+      />
+      <button
+        type="submit"
+        class="bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded font-semibold transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+      >
+        Get Started
+      </button>
+    </form>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="bg-black text-gray-400 text-sm py-10 px-4 max-w-5xl mx-auto text-center fade-in">
+    <p class="mb-6">
+      Netflix and third parties use
+      <a href="https://help.netflix.com/legal/privacy#cookies" class="underline hover:text-white">cookies and similar technologies</a>
+      on this website to collect information about your browsing activities, which we use to analyse your use of the website, personalise our services,
+      and customise online advertisements. You can accept, reject, or personalise your choices by selecting ‘Learn more.’ Netflix supports the Digital Advertising Alliance Principles.
+    </p>
+    <p class="mb-6">
+      Learn more &nbsp;&nbsp;
+      <button class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-white font-semibold transition">Reject</button>
+      <button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white font-semibold ml-2 transition">Accept</button>
+    </p>
+    <img
+      src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7f67-86aa-d06aa27c6cc0/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+      alt="Netflix Logo"
+      class="mx-auto h-10 mt-4"
+    />
+  </footer>
+
+  <script>
+    // Sticky header shadow on scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        header.classList.add('header-shadow');
+      } else {
+        header.classList.remove('header-shadow');
+      }
+    });
+
+    // FAQ collapsible
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach((question) => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        if (answer.classList.contains('open')) {
+          answer.classList.remove('open');
+        } else {
+          // Close all open answers
+          document.querySelectorAll('.faq-answer.open').forEach((openAnswer) => {
+            openAnswer.classList.remove('open');
+          });
+          answer.classList.add('open');
+        }
+      });
+    });
+
+    // Scroll animations for slide-up elements
+    const slideUpElements = document.querySelectorAll('.slide-up');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    slideUpElements.forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
